@@ -8,7 +8,6 @@
 
 #include "util.h"
 #include "uritests.h"
-#include "compattests.h"
 
 #ifdef ENABLE_WALLET
 #include "paymentservertests.h"
@@ -37,7 +36,7 @@ int main(int argc, char *argv[])
     // Don't remove this, it's needed to access
     // QCoreApplication:: in the tests
     QCoreApplication app(argc, argv);
-    app.setApplicationName("Litecoin-Qt-test");
+    app.setApplicationName("Infinitecoin-Qt-test");
 
     SSL_library_init();
 
@@ -49,9 +48,6 @@ int main(int argc, char *argv[])
     if (QTest::qExec(&test2) != 0)
         fInvalid = true;
 #endif
-    CompatTests test4;
-    if (QTest::qExec(&test4) != 0)
-        fInvalid = true;
 
     return fInvalid;
 }
