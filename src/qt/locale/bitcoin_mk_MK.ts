@@ -138,16 +138,16 @@
         <translation>Повторно индексирање на блокови од дискот...</translation>
     </message>
     <message>
-        <source>Send coins to a Litecoin address</source>
-        <translation>Испрати Litecoin на Litecoin адреса</translation>
+        <source>Send coins to a Infinitecoin address</source>
+        <translation>Испрати Infinitecoin на Infinitecoin адреса</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Потврди порака...</translation>
     </message>
     <message>
-        <source>Litecoin</source>
-        <translation>Litecoin</translation>
+        <source>Infinitecoin</source>
+        <translation>Infinitecoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -600,8 +600,8 @@
         <translation>Опции:</translation>
     </message>
     <message>
-        <source>Litecoin Core</source>
-        <translation>Litecoin Core</translation>
+        <source>Infinitecoin Core</source>
+        <translation>Infinitecoin Core</translation>
     </message>
     <message>
         <source>Warning</source>
