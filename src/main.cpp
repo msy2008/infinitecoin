@@ -51,7 +51,7 @@
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Litecoin cannot be compiled without assertions."
+# error "Infinitecoin cannot be compiled without assertions."
 #endif
 
 /**
@@ -116,7 +116,7 @@ static void CheckBlockIndex(const Consensus::Params& consensusParams);
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Litecoin Signed Message:\n";
+const string strMessageMagic = "Infinitecoin Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -1555,7 +1555,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         // Remove conflicting transactions from the mempool
         BOOST_FOREACH(const CTxMemPool::txiter it, allConflicting)
         {
-            LogPrint("mempool", "replacing tx %s with %s for %s LTC additional fees, %d delta bytes\n",
+            LogPrint("mempool", "replacing tx %s with %s for %s IFC additional fees, %d delta bytes\n",
                     it->GetTx().GetHash().ToString(),
                     hash.ToString(),
                     FormatMoney(nModifiedFees - nConflictingFees),
@@ -1726,7 +1726,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     if (halvings >= 64)
         return 0;
 
-    CAmount nSubsidy = 50 * COIN;
+    CAmount nSubsidy = 524288 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;
     return nSubsidy;
@@ -2268,7 +2268,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("litecoin-scriptch");
+    RenameThread("infinitecoin-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -3530,8 +3530,8 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
 bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, CBlockIndex * const pindexPrev, int64_t nAdjustedTime)
 {
     // Check proof of work
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
+    //if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+        //return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
@@ -3569,9 +3569,9 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
                                  strprintf("rejected nVersion=0x%08x block", version - 1));
 
     // Reject outdated version blocks when 75% of the network (BIP9 rules) has upgraded:
-    if (block.nVersion < VERSIONBITS_TOP_BITS && IsWitnessEnabled(pindexPrev, consensusParams))
-        return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
-                             strprintf("rejected nVersion=0x%08x block", block.nVersion));
+    //if (block.nVersion < VERSIONBITS_TOP_BITS && IsWitnessEnabled(pindexPrev, consensusParams))
+        //return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
+                             //strprintf("rejected nVersion=0x%08x block", block.nVersion));
 
     return true;
 }
@@ -3598,27 +3598,9 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
         }
     }
 
-    // Litecoin: (mainnet >= 710000, regtest and testnet uses supermajority)
     // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
     // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
-    bool checkHeightMismatch = false;
-    if (block.nVersion >= 2)
-    {
-        if (consensusParams.BIP34Height != -1)
-        {
-            // Mainnet 710k
-            if (nHeight >= consensusParams.BIP34Height)
-                checkHeightMismatch = true;
-        }
-        else
-        {
-            // Regtest and Testnet: use Bitcoin's supermajority rule
-            if (IsSuperMajority(2, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
-                checkHeightMismatch = true;
-        }
-    }
-
-    if (checkHeightMismatch)
+    if (block.nVersion >= 2 && IsSuperMajority(2, pindexPrev, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams))
     {
         CScript expect = CScript() << nHeight;
         if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
@@ -4158,8 +4140,7 @@ bool CVerifyDB::VerifyDB(const CChainParams& chainparams, CCoinsView *coinsview,
 
     // Verify blocks in the best chain
     if (nCheckDepth <= 0)
-        // Litecoin: suffices until year 10214. Didn't x4 value due to integer wrap around and upstream compatibility.
-        nCheckDepth = std::numeric_limits<int>::max();
+        nCheckDepth = 1000000000; // suffices until the year 19000
     if (nCheckDepth > chainActive.Height())
         nCheckDepth = chainActive.Height();
     nCheckLevel = std::max(0, std::min(4, nCheckLevel));
