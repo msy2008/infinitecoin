@@ -514,7 +514,7 @@ class CTransaction(object):
     def is_valid(self):
         self.calc_sha256()
         for tout in self.vout:
-            if tout.nValue < 0 or tout.nValue > 84000000 * COIN:
+            if tout.nValue < 0 or tout.nValue > 90600000000 * COIN:
                 return False
         return True
 
@@ -1631,7 +1631,7 @@ class NodeConn(asyncore.dispatcher):
         vt.addrFrom.ip = "0.0.0.0"
         vt.addrFrom.port = 0
         self.send_message(vt, True)
-        print('MiniNode: Connecting to Litecoin Node IP # ' + dstaddr + ':' \
+        print('MiniNode: Connecting to Infinitecoin Node IP # ' + dstaddr + ':' \
             + str(dstport))
 
         try:
