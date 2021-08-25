@@ -3,7 +3,7 @@ dist: trusty
 
 #workaround for https://github.com/travis-ci/travis-ci/issues/5227
 addons:
-  hostname: litecoin-tester
+  hostname: infinitecoin-tester
 
 os: linux
 language: generic
