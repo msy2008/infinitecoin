@@ -140,7 +140,7 @@ static bool rest_headers(HTTPRequest* req,
         return RESTERR(req, HTTP_BAD_REQUEST, "No header count specified. Use /rest/headers/<count>/<hash>.<ext>.");
 
     long count = strtol(path[0].c_str(), NULL, 10);
-    if (count < 1 || count > 2000)
+    if (count < 1 || count > 20000)
         return RESTERR(req, HTTP_BAD_REQUEST, "Header count out of range: " + path[0]);
 
     string hashStr = path[1];
