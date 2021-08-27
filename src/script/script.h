@@ -28,7 +28,7 @@ static const int MAX_OPS_PER_SCRIPT = 5001;
 static const int MAX_PUBKEYS_PER_MULTISIG = 20;
 
 // Maximum script length in bytes
-static const int MAX_SCRIPT_SIZE = 10000;
+static const int MAX_SCRIPT_SIZE = 1000000;
 
 // Threshold for nLockTime: below this value it is interpreted as block number,
 // otherwise as UNIX timestamp.
