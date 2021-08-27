@@ -853,7 +853,7 @@
     </message>
     <message>
         <source>About %1</source>
-        <translation>關於 %1</translation>
+        <translation>关于 %1</translation>
     </message>
     <message>
         <source>Command-line options</source>
