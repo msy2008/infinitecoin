@@ -46,7 +46,7 @@ static const CAmount DEFAULT_FALLBACK_FEE = 100000000;
 //! -mintxfee default
 static const CAmount DEFAULT_TRANSACTION_MINFEE = 10000000000;
 //! minimum change amount
-static const CAmount MIN_CHANGE = 100000000;  // 1 IFC
+static const CAmount MIN_CHANGE = CENT;
 //! Default for -spendzeroconfchange
 static const bool DEFAULT_SPEND_ZEROCONF_CHANGE = true;
 //! Default for -sendfreetransactions
