@@ -967,6 +967,12 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     if (Params().RequireStandard() && !fRequireStandard)
         return InitError(strprintf("acceptnonstdtxn is not currently supported for %s chain", chainparams.NetworkIDString()));
     nBytesPerSigOp = GetArg("-bytespersigop", nBytesPerSigOp);
+    
+    if (mapArgs.count("-mininput"))
+    {
+        if (!ParseMoney(mapArgs["-mininput"], nMinimumInputThreshold))
+            return InitError(strprintf(_("Invalid amount for -mininput=<amount>: '%s'"), mapArgs["-mininput"]));
+    }
 
 #ifdef ENABLE_WALLET
     if (!CWallet::ParameterInteraction())
