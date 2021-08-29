@@ -65,6 +65,10 @@ static const int64_t ORPHAN_TX_EXPIRE_INTERVAL = 5 * 60;
 static const unsigned int DEFAULT_ANCESTOR_LIMIT = 25;
 /** Default for -limitancestorsize, maximum kilobytes of tx + all in-mempool ancestors */
 static const unsigned int DEFAULT_ANCESTOR_SIZE_LIMIT = 101;
+
+/** Infinitecoin: default minimum input threshold, override with -mininput */
+static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = 100000000; // 1 IFC
+
 /** Default for -limitdescendantcount, max number of in-mempool descendants */
 static const unsigned int DEFAULT_DESCENDANT_LIMIT = 25;
 /** Default for -limitdescendantsize, maximum kilobytes of in-mempool descendants */
