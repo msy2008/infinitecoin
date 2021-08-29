@@ -1131,7 +1131,7 @@ CAmount CWallet::GetChange(const CTxOut& txout) const
 bool CWallet::IsMine(const CTransaction& tx) const
 {
     BOOST_FOREACH(const CTxOut& txout, tx.vout)
-        if (IsMine(txout))
+        if (IsMine(txout) && txout.nValue >= nMinimumInputThreshold)
             return true;
     return false;
 }
