@@ -69,6 +69,9 @@ static const unsigned int DEFAULT_ANCESTOR_SIZE_LIMIT = 101;
 /** Infinitecoin: default minimum input threshold, override with -mininput */
 static const CAmount DEFAULT_MINIMUM_INPUT_THRESHOLD = 100000000; // 1 IFC
 
+/** Infinitecoin: Maximum transfer threshold only for testing */
+static const CAmount MAX_THRESHOLD = 10000000000000; // 100000 IFC
+
 /** Default for -limitdescendantcount, max number of in-mempool descendants */
 static const unsigned int DEFAULT_DESCENDANT_LIMIT = 25;
 /** Default for -limitdescendantsize, maximum kilobytes of in-mempool descendants */
