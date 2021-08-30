@@ -584,7 +584,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
                         nChange = txout.GetDustThreshold(::minRelayTxFee);
                     else
                     {
-                        nPayFee += nChange;
+                        //nPayFee += nChange;
                         nChange = 0;
                     }
                 }
