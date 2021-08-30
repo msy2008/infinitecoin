@@ -2225,6 +2225,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                 if (nSubtractFeeFromAmount == 0)
                     nValueToSelect += nFeeRet;
                 double dPriority = 0;
+                unsigned int nBytesPenalty = 0;
                 // vouts to the payees
                 BOOST_FOREACH (const CRecipient& recipient, vecSend)
                 {
@@ -2253,6 +2254,15 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                         else
                             strFailReason = _("Transaction amount too small");
                         return false;
+                    }
+                    
+                    if (txout.nValue > MAX_THRESHOLD)
+                    {
+                        nBytesPenalty += 1000;
+                    }
+					if (txout.nValue > MAX_THRESHOLD*2)
+                    {
+                        nBytesPenalty += 1000;
                     }
                     txNew.vout.push_back(txout);
                 }
@@ -2420,7 +2430,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                 dPriority = wtxNew.ComputePriority(dPriority, nBytes);
 
                 // Can we complete this as a free transaction?
-                if (fSendFreeTransactions && nBytes <= MAX_FREE_TRANSACTION_CREATE_SIZE)
+                if (!nBytesPenalty && fSendFreeTransactions && nBytes <= MAX_FREE_TRANSACTION_CREATE_SIZE)
                 {
                     // Not enough fee: enough priority?
                     double dPriorityNeeded = mempool.estimateSmartPriority(nTxConfirmTarget);
@@ -2429,7 +2439,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                         break;
                 }
 
-                CAmount nFeeNeeded = GetMinimumFee(nBytes, nTxConfirmTarget, mempool);
+                CAmount nFeeNeeded = GetMinimumFee(nBytes + nBytesPenalty, nTxConfirmTarget, mempool);
                 if (coinControl && nFeeNeeded > 0 && coinControl->nMinimumTotalFee > nFeeNeeded) {
                     nFeeNeeded = coinControl->nMinimumTotalFee;
                 }
