@@ -1878,7 +1878,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
 }
 
 static void ApproximateBestSubset(vector<pair<CAmount, pair<const CWalletTx*,unsigned int> > >vValue, const CAmount& nTotalLower, const CAmount& nTargetValue,
-                                  vector<char>& vfBest, CAmount& nBest, int iterations = 1000)
+                                  vector<char>& vfBest, CAmount& nBest, int iterations = 10000)
 {
     vector<char> vfIncluded;
 
