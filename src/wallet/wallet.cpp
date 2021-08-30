@@ -2741,7 +2741,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                     if (newTxOut.IsDust(::minRelayTxFee))
                     {
                         nChangePosInOut = -1;
-                        nFeeRet += nChange;
+                        //nFeeRet += nChange;
                         reservekey.ReturnKey();
                     }
                     else
