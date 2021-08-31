@@ -2738,8 +2738,14 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
 
                     // Never create dust outputs; if we would, just
                     // add the dust to the fee.
-
-
+                    if (newTxOut.IsDust(::minRelayTxFee))
+                    {
+                        nChangePosInOut = -1;
+                        nFeeRet += nChange;
+                        reservekey.ReturnKey();
+                    }
+                    else
+                    {
                         if (nChangePosInOut == -1)
                         {
                             // Insert change txn at random position:
@@ -2753,7 +2759,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
 
                         vector<CTxOut>::iterator position = txNew.vout.begin()+nChangePosInOut;
                         txNew.vout.insert(position, newTxOut);
-                    
+                    }
                 }
                 else
                     reservekey.ReturnKey();
