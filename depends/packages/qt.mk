@@ -4,9 +4,7 @@ $(package)_download_path=https://download.qt.io/official_releases/qt/5.12/$($(pa
 $(package)_suffix=everywhere-src-$($(package)_version).tar.xz
 $(package)_file_name=qtbase-$($(package)_suffix)
 $(package)_sha256_hash=1c1b4e33137ca77881074c140d54c3c9747e845a31338cfe8680f171f0bc3a39
-$(package)_dependencies=openssl
-$(package)_linux_dependencies=freetype fontconfig libxcb libX11 xproto libXext
-$(package)_build_subdir=qtbase
+$(package)_linux_dependencies=freetype fontconfig libxcb libxkbcommon
 $(package)_qt_libs=corelib network widgets gui plugins testlib
 $(package)_patches=mac-qmake.conf mingw-uuidof.patch pidlist_absolute.patch fix-xcb-include-order.patch fix_qt_pkgconfig.patch
 
